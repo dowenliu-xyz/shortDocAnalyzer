@@ -126,7 +126,7 @@ public class Dictionary {
 	}
 
 	// 扩展词典
-	private DictSegment extDict;
+	private DictSegment dict;
 
 	/**
 	 * 私有构造器
@@ -135,10 +135,10 @@ public class Dictionary {
 	 *            扩展词库
 	 */
 	private Dictionary(Set<char[]> extWords) {
-		this.extDict = new DictSegment('\0');
+		this.dict = mainDict.copy();
 		if (extWords != null) {
 			for (char[] extWord : extWords) {
-				this.extDict.fillSegment(extWord);
+				this.dict.fillSegment(extWord);
 			}
 		}
 	}
@@ -196,7 +196,7 @@ public class Dictionary {
 	 */
 	public void addWord(char[] word) {
 		if (word != null && !"".equals(new String(word).trim())) {
-			this.extDict.fillSegment(new String(word).trim().toCharArray());
+			this.dict.fillSegment(new String(word).trim().toCharArray());
 		}
 	}
 
@@ -235,8 +235,7 @@ public class Dictionary {
 	public Set<Match> match(char[] charArray, boolean fineGrained) {
 		Set<Match> matchs = new HashSet<Match>();
 		if (charArray != null) {
-			matchs.addAll(mainDict.match(charArray, fineGrained));
-			matchs.addAll(this.extDict.match(charArray, fineGrained));
+			matchs.addAll(this.dict.match(charArray, fineGrained));
 		}
 		return matchs;
 	}

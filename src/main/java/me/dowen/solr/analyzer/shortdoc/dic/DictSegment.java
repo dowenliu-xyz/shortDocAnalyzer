@@ -182,4 +182,21 @@ public class DictSegment {
 		}
 	}
 
+	/**
+	 * 深复制
+	 * @return
+	 */
+	public DictSegment copy() {
+		DictSegment copy = new DictSegment(this.getKeyChar());
+		if (this.isToken()) {
+			copy.endToken();
+		}
+		if (this.hasChildSeg()) {
+			for (DictSegment childSeg : this.childrenSegIndex.values()) {
+				copy.childrenSegIndex.put(childSeg.getKeyChar(), childSeg.copy());
+			}
+		}
+		return copy;
+	}
+
 }
