@@ -108,7 +108,7 @@ public class Segment implements Comparable<Segment> {
 		Segment segment = new Segment();
 		segment.setLength(match.getEnd() - match.getBegin() + 1);
 		segment.setStart(offset + match.getBegin());
-		segment.setEnd(offset + match.getEnd());
+		segment.setEnd(offset + match.getEnd() + 1);
 		try {
 		segment.setValue(new String(Arrays.copyOfRange(charArray,
 				match.getBegin(), match.getEnd() + 1)));

@@ -171,8 +171,10 @@ public class AnalyzeContext {
 		Set<Segment> endSegs = this.getSegsOfEnd(segment.getEnd());
 		endSegs.add(segment);
 		// 标记字典匹配
-		for (int i = segment.getStart(); i <= segment.getEnd(); i++) {
-			this.matchFlags[i] = true;
+		for (int i = segment.getStart(); i < segment.getEnd(); i++) {
+			if (i < this.matchFlags.length) {
+				this.matchFlags[i] = true;
+			}
 		}
 		Collections.sort(this.segments); // 排序
 	}
