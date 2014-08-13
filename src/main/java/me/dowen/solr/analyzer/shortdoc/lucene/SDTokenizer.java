@@ -2,7 +2,6 @@ package me.dowen.solr.analyzer.shortdoc.lucene;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Set;
 
 import me.dowen.solr.analyzer.shortdoc.core.Segment;
 import me.dowen.solr.analyzer.shortdoc.core.Segmenter;
@@ -20,7 +19,6 @@ import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
 public class SDTokenizer extends Tokenizer {
 
 	private String usageName; // 用例名
-	private Set<char[]> extWords; // 扩展字典
 	private boolean fineGrained = true; // 是否最细粒度切分
 
 	private Segmenter segmenter; // 主分词器类
@@ -59,23 +57,6 @@ public class SDTokenizer extends Tokenizer {
 	 */
 	public void setUsageName(String usageName) {
 		this.usageName = usageName;
-	}
-
-	/**
-	 * 取出扩展字典
-	 * @return
-	 */
-	public Set<char[]> getExtWords() {
-		return extWords;
-	}
-
-	/**
-	 * 设置扩展字典<br/>
-	 * <strong>仅应在{@link SDTokenizerFactory#create(AttributeFactory, Reader)}方法中调用</strong>
-	 * @param extWords
-	 */
-	public void setExtWords(Set<char[]> extWords) {
-		this.extWords = extWords;
 	}
 
 	/**
@@ -127,7 +108,7 @@ public class SDTokenizer extends Tokenizer {
 	 */
 	public void initSegmenter() {
 		this.segmenter = new Segmenter(this.input, this.usageName,
-				this.extWords, this.fineGrained);
+				this.fineGrained);
 	}
 
 }

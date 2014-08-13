@@ -2,7 +2,6 @@ package me.dowen.solr.analyzer.shortdoc.core;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Set;
 
 import me.dowen.solr.analyzer.shortdoc.core.segmenter.CharTypeSegmenter;
 import me.dowen.solr.analyzer.shortdoc.core.segmenter.DictMatchSegmenter;
@@ -27,12 +26,11 @@ public class Segmenter {
 	 * 构造器
 	 * @param input 输入源
 	 * @param usage 用例名（上下文名称、字典实例名）
-	 * @param extWords 扩展字典
 	 * @param fineGrained 是否最细粒度切分
 	 */
-	public Segmenter(Reader input, String usage, Set<char[]> extWords, boolean fineGrained) {
+	public Segmenter(Reader input, String usage, boolean fineGrained) {
 		this.input = input;
-		this.ctx = new AnalyzeContext(usage, extWords, fineGrained);
+		this.ctx = new AnalyzeContext(usage, fineGrained);
 		this.segmenterChain = new SegmenterChain();
 		this.segmenterChain.append(new CharTypeSegmenter());
 		this.segmenterChain.append(new DictMatchSegmenter());
@@ -82,8 +80,7 @@ public class Segmenter {
 	public synchronized void reset(Reader input) {
 		this.input = input;
 		this.anaylyzed = false;
-		this.ctx = new AnalyzeContext(this.ctx.getName(),
-				this.ctx.getExtWords(), this.ctx.isFineGrained());
+		this.ctx = new AnalyzeContext(this.ctx.getName(), this.ctx.isFineGrained());
 	}
 
 }

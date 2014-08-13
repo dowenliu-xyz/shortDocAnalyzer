@@ -17,8 +17,7 @@ import java.util.Set;
 public class DictSegment {
 
 	// 子片段树
-	private Map<Character, DictSegment> childrenSegIndex = new HashMap<Character, DictSegment>(
-			128, 0.95F);
+	private Map<Character, DictSegment> childrenSegIndex = new HashMap<Character, DictSegment>();
 	// 当前结点字符key值
 	private Character keyChar = '\0'; // root结点为\0
 	// 当前是否可取出word

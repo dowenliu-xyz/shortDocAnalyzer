@@ -22,7 +22,6 @@ import me.dowen.solr.analyzer.shortdoc.dic.MatchType;
 public class AnalyzeContext {
 
 	private final String name; // 上下文名称（字典实例名）
-	private final Set<char[]> extWords; // 扩展字典
 	private final boolean fineGrained; // 是否最细粒度切分
 
 	// 去重用片段集合
@@ -47,37 +46,12 @@ public class AnalyzeContext {
 	/**
 	 * 构造器
 	 * @param name 上下文名称
-	 * @param extWords 扩展字典
-	 * @param fineGrained 是否最细粒度切分
-	 */
-	public AnalyzeContext(String name, Set<char[]> extWords, boolean fineGrained) {
-		this.name = name;
-		this.extWords = extWords;
-		this.fineGrained = fineGrained;
-		initDict();
-	}
-
-	/**
-	 * 构造器。无扩展字典
-	 * @param name 上下文名称
 	 * @param fineGrained 是否最细粒度切分
 	 */
 	public AnalyzeContext(String name, boolean fineGrained) {
+		Dictionary.getInstance(name);
 		this.name = name;
-		this.extWords = null;
 		this.fineGrained = fineGrained;
-		initDict();
-	}
-
-	/**
-	 * 初始化字典实例
-	 */
-	private void initDict() {
-		try {
-			Dictionary.getInstance(name);
-		} catch (IllegalStateException e) {
-			Dictionary.initInstance(name, extWords);
-		}
 	}
 
 	/**
@@ -86,14 +60,6 @@ public class AnalyzeContext {
 	 */
 	public String getName() {
 		return name;
-	}
-
-	/**
-	 * 取出扩展字典
-	 * @return
-	 */
-	public Set<char[]> getExtWords() {
-		return extWords;
 	}
 
 	/**

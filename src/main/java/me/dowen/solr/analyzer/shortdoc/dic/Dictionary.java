@@ -144,7 +144,7 @@ public class Dictionary {
 	}
 
 	/**
-	 * 初始化词典用例
+	 * 初始化词典用例。使用时必须外部进行同步保护
 	 * 
 	 * @param usage
 	 *            用例名
