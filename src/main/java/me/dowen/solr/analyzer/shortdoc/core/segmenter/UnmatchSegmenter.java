@@ -128,7 +128,7 @@ public class UnmatchSegmenter implements ISegmenter {
 			idx = -1;
 		}
 		if (cnumIdx != -1) { // 中文数词
-			Segment seg = Segment.match(ctx.getBuff(), new Match(MatchType.CHINESE_DECIMAL, idx, i - 1), 0);
+			Segment seg = Segment.match(ctx.getBuff(), new Match(MatchType.CHINESE_DECIMAL, cnumIdx, i - 1), 0);
 			ctx.addSegment(seg);
 			Segment alaisSeg = new Segment();
 			alaisSeg.setEnd(seg.getEnd());
